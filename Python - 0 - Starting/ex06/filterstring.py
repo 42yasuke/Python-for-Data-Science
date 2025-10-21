@@ -6,14 +6,14 @@ from ft_filter import ft_filter
 def filterString(strg, length):
     """
     Filter words in a string based on their length.
-    
+
     Parameters:
         strg (str): Input string containing words.
         length (str): Length threshold as a string.
 
     Returns:
-        list: List of words with length greater than or equal to the specified length.
-        length = int(length)
+        list: List of words with length greater than or
+        equal to the specified length.
     """
     tmp = [x for x in strg.split()]
     result = list(ft_filter(lambda x: len(x) >= length, tmp))
@@ -27,7 +27,7 @@ def testingArgs():
     Raises AssertionError if:
     - The number of arguments is not exactly 3.
     - The second argument is not a digit.
-    - The first argument contains any punctuation characters.   
+    - The first argument contains any punctuation characters.
     """
     if len(sys.argv) != 3:
         raise AssertionError("the arguments are bad")
@@ -44,7 +44,8 @@ def testingArgs():
 
 def main():
     """
-    Main function to execute the filterString function with command-line arguments.
+    Main function to execute the filterString function
+    with command-line arguments.
     Handles AssertionError and prints appropriate messages.
     """
     try:
