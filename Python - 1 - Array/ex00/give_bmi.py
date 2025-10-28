@@ -1,10 +1,15 @@
-import numpy as np
-
-def testLists(height: list[int | float], weight: list[int | float] = None) -> bool:
+def testLists(height: list[int | float], lenght: int) -> bool:
+    if type(height) != list:
+        return False
+    if len(height) != lenght:
+        return False
+    for i in height:
+        if type(i) not in [int, float]:
+            return False
     return True
 
 def give_bmi(height: list[int | float], weight: list[int | float]) -> list[int | float]:
-    if not testLists(height, weight):
+    if not testLists(height, len(weight)) or not testLists(weight, len(height)):
          raise AssertionError("the arguments are bad")
     res = []
     for h, w in zip(height, weight):
@@ -12,7 +17,7 @@ def give_bmi(height: list[int | float], weight: list[int | float]) -> list[int |
     return res
 
 def apply_limit(bmi: list[int | float], limit: int) -> list[bool]:
-    if not testLists(bmi):
+    if not testLists(bmi, len(bmi)):
          raise AssertionError("the arguments are bad")
     res = []
     for b in bmi:
@@ -22,7 +27,6 @@ def apply_limit(bmi: list[int | float], limit: int) -> list[bool]:
 def main():
     height = [2.71, 1.15]
     weight = [165.3, 38.4]
-    print("test")
     try:
         bmi = give_bmi(height, weight)
         print(bmi, type(bmi))
