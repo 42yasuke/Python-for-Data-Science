@@ -12,13 +12,10 @@ def transpose(array):
         Transpose an array
     """
     rows, cols = array.shape[0], array.shape[1]
-    # Créer un nouveau tableau vide avec les dimensions inversées
     result = np.zeros((cols, rows), dtype=array.dtype)
-    
     for i in range(rows):
         for j in range(cols):
             result[j, i] = array[i, j]
-    
     return result
 
 
@@ -45,7 +42,6 @@ def main():
 
     print(f'New shape after Transpose: {image.shape}')
     print(image)
-
 
     plt.imshow(image, cmap='gray')
     plt.axis('off')

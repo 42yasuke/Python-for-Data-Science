@@ -29,7 +29,6 @@ def main():
     print(f' or ({image.shape[0]}, {image.shape[1]})')
     print(image)
 
-
     image = np.squeeze(image)
     plt.imshow(image, cmap='gray')
     plt.axis('off')
