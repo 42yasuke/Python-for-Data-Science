@@ -3,32 +3,33 @@ import matplotlib.pyplot as plt
 
 
 def main():
-    """Plot the relation between incomes and life expectancy"""
+    """
+        Plot the relation between incomes and life expectancy
+    """
+    incomf = 'income_per_person_gdppercapita_ppp_inflation_adjusted.csv'
+
     try:
-        # Loading data
-        income_data = load('income_per_person_gdppercapita_'
-                           'ppp_inflation_adjusted.csv')
+        income_data = load(incomf)  # using a var to bypass flake8
         life_expectancy_data = load('life_expectancy_years.csv')
-
-        # Extract data for the year 1900
-        YEAR = '1900'
-        income_values = income_data[YEAR]
-        life_expectancy_values = life_expectancy_data[YEAR]
-
-        # Graphical representation
-        plt.scatter(income_values, life_expectancy_values)
-
-        plt.xlabel('Gross domestic product')
-        plt.ylabel('Life expectancy')
-        plt.title(YEAR)
-
-        plt.xscale('log')
-        plt.xticks([300, 1000, 10000], ['300', '1k', '10k'])
-
-        plt.show()
-
     except Exception as e:
-        print(f"Error: {e}")
+        print(e)
+        exit(0)
+
+    # Extract the relevant columns
+    YEAR = '1900'
+    income_values = income_data[YEAR]
+    life_expectancy_values = life_expectancy_data[YEAR]
+
+    plt.scatter(income_values, life_expectancy_values)
+
+    plt.xlabel('Gross domestic product')
+    plt.ylabel('Life expectancy')
+    plt.title(YEAR)
+
+    plt.xscale('log')
+    plt.xticks([300, 1000, 10000], ['300', '1k', '10k'])
+
+    plt.show()
 
 
 if __name__ == '__main__':
