@@ -2,7 +2,7 @@ from S1E9 import Character
 
 
 class Baratheon(Character):
-    """A Baratheon that inherit from a Character"""
+    """Representing the Baratheon family."""
     def __init__(self, first_name: str, is_alive=True):
         """Init a Baratheon"""
         super().__init__(first_name, is_alive)
@@ -16,7 +16,7 @@ class Baratheon(Character):
 
     def __str__(self) -> str:
         """Return a string representation of the object"""
-        return f'Vector: ({self.family_name}, {self.eyes}, {self.hairs})'
+        return f"Vector: ('{self.family_name}', '{self.eyes}', '{self.hairs}')"
 
     def __repr__(self):
         """Return a string representation of the object"""
@@ -24,7 +24,7 @@ class Baratheon(Character):
 
 
 class Lannister(Character):
-    """A Lannister that inherit from a Character"""
+    """Representing the Lannister family."""
     def __init__(self, first_name: str, is_alive=True):
         """Init a Lannister"""
         super().__init__(first_name, is_alive)
@@ -43,7 +43,7 @@ class Lannister(Character):
 
     def __str__(self) -> str:
         """Return a string representation of the object"""
-        return f'Vector: ({self.family_name}, {self.eyes}, {self.hairs})'
+        return f"Vector: ('{self.family_name}', '{self.eyes}, '{self.hairs}')"
 
     def __repr__(self):
         """Return a string representation of the object"""
