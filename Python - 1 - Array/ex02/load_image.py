@@ -2,20 +2,32 @@ import numpy as np
 from PIL import Image
 
 
-def load_image(image_path):
+def ft_load(path: str):
     """
-    Load an image from the specified file path and convert it to a NumPy array.
+    Load an image, print its format and pixel content in RGB format.
 
     Parameters:
-    image_path (str): The file path to the image.
+    path (str): The file path to the image.
 
     Returns:
     np.ndarray: The image represented as a NumPy array.
     """
-    img = Image.open(image_path)
-    img_array = np.array(img)
-    print("The shape of image is: ", img_array.shape)
-    return img_array
+    if not (path.lower().endswith('.jpg') or path.lower().endswith('.jpeg')):
+        raise ValueError("Error: Only JPG and JPEG formats are supported")
+
+    try:
+        img = Image.open(path)
+        img = img.convert('RGB')
+        img_array = np.array(img)
+
+        print(f"The shape of image is: {img_array.shape}")
+
+        return img_array
+
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Error: The file '{path}' was not found")
+    except Exception as e:
+        raise Exception(f"Error: Unable to load image - {str(e)}")
 
 
 def main():
@@ -23,9 +35,9 @@ def main():
     Main function to demonstrate loading an image.
     """
     try:
-        print(load_image("landscape.jpg"))
-    except FileNotFoundError:
-        print("Error: The specified image file was not found.")
+        print(ft_load("landscape.jpg"))
+    except Exception as e:
+        print(e)
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 import numpy as np
-from load_image import load_image
+from load_image import ft_load
 import matplotlib.pyplot as plt
 
 
@@ -15,10 +15,8 @@ def ft_red(array) -> np.ndarray:
     Change the color of the image received in red.
     """
     red = array.copy()
-    for i in range(len(red)):
-        for j in range(len(red[i])):
-            red[i][j][1] = 0
-            red[i][j][2] = 0
+    red[:, :, 1] = 0  # Met le vert à 0
+    red[:, :, 2] = 0  # Met le bleu à 0
     return red
 
 
@@ -27,10 +25,8 @@ def ft_green(array) -> np.ndarray:
     Change the color of the image received in green.
     """
     green = array.copy()
-    for i in range(len(green)):
-        for j in range(len(green[i])):
-            green[i][j][0] = 0
-            green[i][j][2] = 0
+    green[:, :, 0] = 0  # Met le rouge à 0
+    green[:, :, 2] = 0  # Met le bleu à 0
     return green
 
 
@@ -39,10 +35,8 @@ def ft_blue(array) -> np.ndarray:
     Change the color of the image received in blue.
     """
     blue = array.copy()
-    for i in range(len(blue)):
-        for j in range(len(blue[i])):
-            blue[i][j][0] = 0
-            blue[i][j][1] = 0
+    blue[:, :, 0] = 0  # Met le rouge à 0
+    blue[:, :, 1] = 0  # Met le vert à 0
     return blue
 
 
@@ -50,13 +44,21 @@ def ft_grey(array) -> np.ndarray:
     """
     Change the color of the image received in grey.
     """
-    grey = array.copy()
-    for i in range(len(grey)):
-        for j in range(len(grey[i])):
-            R, V, B = array[i, j, :3]
-            grey_value = R * 0.299 + V * 0.587 + B * 0.114
-            grey[i, j] = np.clip(grey_value, 0, 255)
-    return grey
+    # Formule de luminance
+    grey = np.dot(array[..., :3], [0.299, 0.587, 0.114])
+    grey = np.clip(grey, 0, 255).astype(np.uint8)
+    # Pour garder 3 canaux (R=G=B)
+    return np.stack([grey, grey, grey], axis=2)
+
+
+def display_image(img, title):
+    """
+    Display the image using matplotlib with a title.
+    """
+    plt.imshow(img)
+    plt.title(title)
+    plt.axis('off')
+    plt.show()
 
 
 def main():
@@ -64,25 +66,28 @@ def main():
     Main function to demonstrate image manipulation.
     """
     try:
-        image = load_image("landscape.jpg")
-        ft_invert(image)
-        ft_red(image)
-        ft_green(image)
-        ft_blue(image)
-        ft_grey(image)
-        print(ft_invert.__doc__)
+        array = ft_load("landscape.jpg")
+    except Exception as e:
+        print(f"Error: {e}")
+        return
 
-    except FileNotFoundError:
-        print("Error: The specified image file was not found.")
+    # Appliquer et afficher chaque filtre
+    invert_img = ft_invert(array)
+    display_image(invert_img, "Invert")
 
-    else:
-        image = ft_invert(image)
+    red_img = ft_red(array)
+    display_image(red_img, "Red")
 
-        image = np.squeeze(image)
+    green_img = ft_green(array)
+    display_image(green_img, "Green")
 
-        plt.imshow(image, cmap='gray')
-        plt.axis('off')
-        plt.show()
+    blue_img = ft_blue(array)
+    display_image(blue_img, "Blue")
+
+    grey_img = ft_grey(array)
+    display_image(grey_img, "Grey")
+
+    print(ft_invert.__doc__)
 
 
 if __name__ == "__main__":
