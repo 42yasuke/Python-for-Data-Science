@@ -9,11 +9,11 @@ def main():
     incomf = 'income_per_person_gdppercapita_ppp_inflation_adjusted.csv'
 
     try:
-        income_data = load(incomf)  # using a var to bypass flake8
+        income_data = load(incomf)
         life_expectancy_data = load('life_expectancy_years.csv')
     except Exception as e:
         print(e)
-        exit(0)
+        return
 
     # Extract the relevant columns
     YEAR = '1900'
@@ -26,6 +26,8 @@ def main():
     plt.ylabel('Life expectancy')
     plt.title(YEAR)
 
+    # Set x-axis to logarithmic scale and configure ticks
+    # for 300, 1k, and 10k instead of 3*10e2, 10e3, and 10e4
     plt.xscale('log')
     plt.xticks([300, 1000, 10000], ['300', '1k', '10k'])
 

@@ -2,13 +2,14 @@ import matplotlib.pyplot as plt
 from load_csv import load
 
 
-# Convert values (e.g., '64.5M' -> 64500000.0)
 def convert_val(x):
     """Convert population string to float value."""
-    return float(x.replace('M', 'e6').replace('k', 'e3'))
+    if isinstance(x, (int, float)):
+        return float(x)
+    x_str = str(x)
+    return float(x_str.replace('M', 'e6').replace('k', 'e3'))
 
 
-# Formater l'axe Y pour afficher "20M", "40M", "60M"
 def format_y_axis(value, pos):
     """Format y-axis labels to show in millions or thousands."""
     if value >= 1_000_000:
@@ -19,35 +20,55 @@ def format_y_axis(value, pos):
 
 
 def main():
-    """Compare population projections of France vs Belgium"""
+    """Compare population projections of France vs Belgium (1800-2050)."""
+    # Load dataset
     df = load("population_total.csv")
+    if df is None:
+        return
+
+    # Validate dataset
+    if 'country' not in df.columns:
+        print("Error: Invalid CSV format - missing 'country' column")
+        return
+
+    # Set country as index
     df = df.set_index('country')
 
-    # Get data for both countries
-    france = df.loc['France'].iloc[:251]
-    belgium = df.loc['Belgium'].iloc[:251]
+    # Check countries exist
+    countries = ['France', 'Belgium']
+    for country in countries:
+        if country not in df.index:
+            print(f"Error: '{country}' not found in dataset")
+            return
 
-    france_values = [convert_val(x) for x in france]
-    belgium_values = [convert_val(x) for x in belgium]
-    years = france.index
+    # Select years from 1800 to 2050
+    years = [str(year) for year in range(1800, 2051)]
+    available_years = [year for year in years if year in df.columns]
+
+    # Get data for both countries
+    france_raw = df.loc['France'][available_years]
+    belgium_raw = df.loc['Belgium'][available_years]
+
+    # Convert population values
+    france_values = [convert_val(x) for x in france_raw]
+    belgium_values = [convert_val(x) for x in belgium_raw]
 
     # Create plot
-    plt.plot(years, france_values, label='France', color='green')
-    plt.plot(years, belgium_values, label='Belgium', color='blue')
+    plt.figure(figsize=(10, 6))
+    plt.plot(available_years, france_values, label='France', color='green')
+    plt.plot(available_years, belgium_values, label='Belgium', color='blue')
 
+    # Customize plot
     plt.title('Population Projections')
     plt.ylabel('Population')
     plt.xlabel('Year')
-    plt.legend()
 
-    # Show only some years on x-axis
-    plt.xticks(years[::40])
+    # Configure x-axis (show every 40 years)
+    plt.xticks(available_years[::40], rotation=45)
 
-    # Appliquer le formateur
-    plt.gca().yaxis.set_major_formatter(format_y_axis)
-
-    # Format y-axis to show 20M, 40M, 60M
-    plt.yticks([20000000, 40000000, 60000000])
+    # Configure y-axis with custom formatter
+    ax = plt.gca()
+    ax.yaxis.set_major_formatter(plt.FuncFormatter(format_y_axis))
 
     plt.show()
 
