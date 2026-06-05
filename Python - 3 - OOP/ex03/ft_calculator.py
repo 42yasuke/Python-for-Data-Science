@@ -7,21 +7,25 @@ class calculator:
 
     def __add__(self, object) -> None:
         """Add a scalar to the vector"""
-        print([x + object for x in self.vec])
+        self.vec = [x + object for x in self.vec]
+        print(self.vec)
 
     def __mul__(self, object) -> None:
         """Multiply the vector by a scalar"""
-        print([x * object for x in self.vec])
+        self.vec = [x * object for x in self.vec]
+        print(self.vec)
 
     def __sub__(self, object) -> None:
         """Substract a scalar to the vector"""
-        print([x - object for x in self.vec])
+        self.vec = [x - object for x in self.vec]
+        print(self.vec)
 
     def __truediv__(self, object) -> None:
         """Divide the vector by a scalar"""
         if object == 0:
             raise ZeroDivisionError("division by zero")
-        print([x / object for x in self.vec])
+        self.vec = [x / object for x in self.vec]
+        print(self.vec)
 
 
 def main():
