@@ -36,14 +36,14 @@ class Lannister(Character):
         """The Lannister die"""
         self.is_alive = False
 
-    @staticmethod
-    def create_lannister(first_name, is_alive=True):
+    @classmethod
+    def create_lannister(cls, first_name, is_alive=True):
         """Returns a new Lannister"""
-        return Lannister(first_name, is_alive)
+        return cls(first_name, is_alive)
 
     def __str__(self) -> str:
         """Return a string representation of the object"""
-        return f"Vector: ('{self.family_name}', '{self.eyes}, '{self.hairs}')"
+        return f"Vector: ('{self.family_name}', '{self.eyes}', '{self.hairs}')"
 
     def __repr__(self):
         """Return a string representation of the object"""
