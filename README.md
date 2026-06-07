@@ -7,18 +7,11 @@
 Ce dépôt contient l'intégralité de mon travail pour la **Piscine Python for Data Science** de l'école 42. Ce programme intensif couvre les fondamentaux de Python jusqu'à la manipulation de données, en passant par la programmation orientée objet et les décorateurs.
 
 ## 📚 Table des matières
-
-- [Modules](#modules)
-  - [Python 0 - Starting](#python-0---starting)
-  - [Python 1 - Array](#python-1---array)
-  - [Python 2 - DataTable](#python-2---datatable)
-  - [Python 3 - OOP](#python-3---oop)
-  - [Python 4 - Data Oriented Design (DOD)](#python-4---data-oriented-design-dod)
-- [Prérequis](#prérequis)
-- [Installation](#installation)
-- [Utilisation](#utilisation)
-- [Style et normes](#style-et-normes)
-- [Auteur](#auteur)
+- [Python 0 - Starting](#python-0---starting)
+- [Python 1 - Array](#python-1---array)
+- [Python 2 - DataTable](#python-2---datatable)
+- [Python 3 - OOP](#python-3---oop)
+- [Python 4 - Data Oriented Design (DOD)](#python-4---data-oriented-design-dod)
 
 ## 🗂️ Modules
 
